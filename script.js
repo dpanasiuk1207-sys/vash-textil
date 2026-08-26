@@ -10,33 +10,20 @@ function setupRails(){["#allRail","#pillowRail","#duvetRail","#linenRail","#cove
 function setupCatalog(){const g=$("#catalogGrid");if(!g)return;let cat="all",size="all",sort="popular";function draw(){let a=[...P];if(cat!=="all")a=a.filter(x=>x.cat===cat);if(size!=="all")a=a.filter(x=>x.sizes.includes(size));if(sort==="cheap")a.sort((x,y)=>x.price-y.price);if(sort==="expensive")a.sort((x,y)=>y.price-x.price);g.innerHTML=a.map(card).join("");bindImageFallback(g);$("#resultCount").textContent=`${a.length} товарів`;observe()}$$(".catFilter").forEach(b=>b.onclick=()=>{$$(".catFilter").forEach(x=>x.classList.remove("active"));b.classList.add("active");cat=b.dataset.cat;draw()});$("#sizeFilter")?.addEventListener("change",e=>{size=e.target.value;draw()});$("#sortFilter")?.addEventListener("change",e=>{sort=e.target.value;draw()});const q=new URLSearchParams(location.search).get("cat");if(q){const b=$(`.catFilter[data-cat="${q}"]`);if(b){b.classList.add("active");cat=q}}draw()}
 function setupProduct(){
  const d=$("#productDetail"); if(!d)return;
- let id=new URLSearchParams(location.search).get("id"),p=P.find(x=>x.id===id)||P[0],chosen=p.sizes[0];
- const gallery=$("#productMediaThumbs"),mainImg=$("#productMainMedia"),mainVideo=$("#productMainVideo"),counter=$("#mediaCounter"),stage=document.querySelector(".product-media-main");
- const imgs=(p.media&&p.media.images&&p.media.images.length?p.media.images:[p.img]);
- const items=[...imgs.map(s=>({t:"i",s})),...(p.media&&p.media.video?[{t:"v",s:p.media.video.src,p:p.media.video.poster||imgs[0]}]:[])];
- let idx=0;
- function show(i){
-   idx=(i+items.length)%items.length; const x=items[idx];
-   stage?.classList.add("is-changing"); setTimeout(()=>stage?.classList.remove("is-changing"),180);
-   if(x.t==="v"){mainImg.hidden=true;mainVideo.hidden=false;mainVideo.poster=x.p||"";mainVideo.src=x.s;mainVideo.load()}
-   else{mainVideo.pause();mainVideo.removeAttribute("src");mainVideo.hidden=true;mainImg.hidden=false;mainImg.src=x.s;mainImg.alt=p.name}
-   if(counter)counter.textContent=`${idx+1} / ${items.length}`;
-   $$(".media-thumb",gallery).forEach((b,n)=>b.classList.toggle("active",n===idx));
- }
- if(gallery){
-   gallery.innerHTML="";
-   items.forEach((x,i)=>{const b=document.createElement("button");b.type="button";b.className="media-thumb"+(x.t==="v"?" video-thumb":"");b.setAttribute("aria-label",x.t==="v"?"Відео товару":`Фото ${i+1}`);
-     const im=document.createElement("img");im.src=x.t==="v"?(x.p||imgs[0]):x.s;im.alt="";im.loading="lazy";im.referrerPolicy="no-referrer";b.append(im);b.onclick=()=>show(i);gallery.append(b)});
- }
+ const id=new URLSearchParams(location.search).get("id"), p=P.find(x=>x.id===id)||P[0];
+ let chosen=p.sizes[0],idx=0;
+ const gallery=$("#productMediaThumbs"),img=$("#productMainMedia"),vid=$("#productMainVideo"),counter=$("#mediaCounter"),stage=$("#mediaStage");
+ const imgs=(p.media?.images||[]).slice(0,6), v=p.media?.video;
+ const items=[...imgs.map((s,n)=>({type:"image",src:s,alt:`${p.name} — фото ${n+1}`})),...(v?[{type:"video",src:v.src,poster:v.poster||imgs[0]}]:[])];
+ function show(i){if(!items.length)return;idx=(i+items.length)%items.length;const x=items[idx];if(x.type==="video"){img.hidden=true;vid.hidden=false;vid.poster=x.poster||"";vid.src=x.src;vid.load()}else{vid.pause();vid.removeAttribute("src");vid.hidden=true;img.hidden=false;img.src=x.src;img.alt=x.alt}if(counter)counter.textContent=`${idx+1} / ${items.length}`;$$(".media-thumb",gallery).forEach((b,n)=>b.classList.toggle("active",n===idx))}
+ if(gallery){gallery.innerHTML="";items.forEach((x,i)=>{const b=document.createElement("button");b.type="button";b.className="media-thumb"+(x.type==="video"?" video-thumb":"");b.setAttribute("aria-label",x.type==="video"?"Відео товару":`Фото ${i+1} товару`);const im=document.createElement("img");im.src=x.type==="video"?(x.poster||imgs[0]):x.src;im.alt="";im.loading="lazy";im.referrerPolicy="no-referrer";b.append(im);b.onclick=()=>show(i);gallery.append(b)})}
  $(".media-prev")?.addEventListener("click",()=>show(idx-1));$(".media-next")?.addEventListener("click",()=>show(idx+1));
  let sx=0;stage?.addEventListener("touchstart",e=>sx=e.changedTouches[0].clientX,{passive:true});stage?.addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>45)show(idx+(dx<0?1:-1))},{passive:true});
- mainVideo?.addEventListener("error",()=>{mainVideo.hidden=true;mainImg.hidden=false;mainImg.src=imgs[0]});
+ vid?.addEventListener("error",()=>{vid.hidden=true;img.hidden=false;img.src=imgs[0]||""});
  show(0);
  d.innerHTML=`<div class="detailInfo"><span class="eyebrow">${p.cat}</span><h1>${p.name}</h1><p class="muted">${p.desc}</p><div class="price">${money(p.price)}</div><p class="eyebrow" style="margin-top:28px">РОЗМІР</p><div class="sizes">${p.sizes.map((s,i)=>`<button class="size ${i===0?"active":""}" data-size="${s}">${s}</button>`).join("")}</div><p class="muted">Матеріал: ${p.material}<br>Доставка: Нова Пошта або Укрпошта</p><button class="btn dark" id="add" style="width:100%">Додати в кошик →</button></div>`;
- $$(".size",d).forEach(b=>b.onclick=()=>{$$(".size",d).forEach(x=>x.classList.remove("active"));b.classList.add("active");chosen=b.dataset.size});
- $("#add",d).onclick=()=>addCart(p,chosen);
+ $$(".size",d).forEach(b=>b.onclick=()=>{$$(".size",d).forEach(x=>x.classList.remove("active"));b.classList.add("active");chosen=b.dataset.size});$("#add",d).onclick=()=>addCart(p,chosen);
 }
-
 let cart=JSON.parse(localStorage.getItem("vt_cart")||"[]");
 function addCart(p,size){let x=cart.find(i=>i.id===p.id&&i.size===size);if(x)x.qty++;else cart.push({id:p.id,name:p.name,price:p.price,img:p.img,size,qty:1});localStorage.setItem("vt_cart",JSON.stringify(cart));openCart()}
 function openCart(){const d=$("#drawer");if(!d)return;d.classList.add("open");renderCart();bindImageFallback(document)}
