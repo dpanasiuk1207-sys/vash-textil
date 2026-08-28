@@ -1,38 +1,30 @@
-ВАШ ТЕКСТИЛЬ — ПОВНЕ РОЗМІЩЕННЯ
+ВАШ ТЕКСТИЛЬ — V13 FINAL
 
-1. РОЗПАКУЙТЕ ZIP.
-2. У GitHub створіть новий PUBLIC repository, наприклад vash-textil.
-3. Завантажте ВСІ файли прямо в корінь репозиторію. НЕ створюйте папку всередині.
-4. Settings → Pages → Build and deployment → Deploy from a branch → main → /(root) → Save.
-5. Через 1–5 хвилин GitHub покаже адресу сайту.
+ЩО Є:
+- 4 категорії каталогу: Подушки, Ковдри, Постіль, Покривала.
+- Горизонтальні rails з плавним скролом.
+- Фільтр за категорією, розміром і ціною.
+- Сторінка товару з 6 фото + окремим відео-елементом.
+- Кошик через localStorage.
+- Checkout з доставкою Нова Пошта / Укрпошта.
+- Два способи оплати: онлайн або післяплата.
+- Google Sheets backend.
+- WayForPay TEST через Apps Script; SecretKey не зберігається у GitHub.
 
-ФАЙЛИ САЙТУ:
-index.html
-catalog.html
-product.html
-order.html
-about.html
-delivery.html
-faq.html
-style.css
-script.js
-data.js
-config.js
-google-apps-script.js
+ВАЖЛИВО ПРО МЕДІА:
+Поточні фото — демонстраційні зовнішні референси. Перед комерційним запуском замініть їх на власні або ліцензовані матеріали. Для відео використано технічний MP4 fallback, щоб плеєр гарантовано мав формат для тесту; це не відео конкретної моделі. Pexels має безкоштовні bedding/pillow відео для заміни.
 
-GOOGLE APPS SCRIPT:
-- google-apps-script.js — це резервна копія коду.
-- Реальний код треба вставити у Google Apps Script.
-- Deploy → New deployment → Web app.
-- Execute as: Me.
-- Who has access: Anyone.
-- URL /exec вже прописаний у config.js на поточний endpoint.
+WAYFORPAY TEST:
+Apps Script → Project Settings → Script Properties:
+WFP_MERCHANT_ACCOUNT = test_merch_n1
+WFP_SECRET_KEY = ключ тестового мерчанта (поточний код містить приклад із офіційної документації; якщо WayForPay видасть інший тестовий ключ, замініть його тут)
+WFP_DOMAIN = dpanasiuk1207-sys.github.io/vash-textil
+WFP_RETURN_URL = https://dpanasiuk1207-sys.github.io/vash-textil/payment-result.html
+WFP_SERVICE_URL = ваш /exec URL Apps Script
 
-ВАЖЛИВО:
-- google-apps-script.js не потрібен браузеру для роботи сайту.
-- Не перейменовуйте файли.
-- index.html має лежати в корені.
-- Фото зараз підтягуються зовнішніми URL; для максимальної стабільності пізніше можна перенести їх у репозиторій.
+google-apps-script.js НЕ завантажувати як фронтенд-скрипт на сайт. Його вміст вставляється в Google Apps Script.
 
-
-V9 MEDIA: кожен товар має власний media-набір: 6 фото + відео. Для демонстрації використано зовнішні референсні матеріали; перед комерційним запуском їх потрібно замінити на ліцензовані матеріали Вашого Текстилю.
+GitHub Pages:
+- index.html має бути в корені.
+- додайте файл .nojekyll.
+- завантажуйте всі файли комплекту.
