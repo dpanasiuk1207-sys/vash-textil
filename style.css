@@ -87,3 +87,14 @@ body{background:#f6f3ee}
 /* Category-specific size filters */
 .sizeChips{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.sizeChips .chip{cursor:pointer}.sizeChips .chip.active{transform:translateY(-1px)}
 @media(max-width:640px){.sizeChips{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.sizeChips .chip{width:100%;padding:10px 6px;font-size:12px}}
+
+
+/* Catalog size buttons: always visible as separate controls, never a dropdown. */
+.sizeButtons{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.sizeButtons .sizeButton{min-width:112px;text-align:center;white-space:nowrap}
+.sizeButtons.is-hidden{display:none}
+.is-hidden{display:none!important}
+@media (max-width:640px){
+ .sizeButtons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;gap:8px}
+ .sizeButtons .sizeButton{min-width:0;width:100%;padding:11px 6px}
+}
