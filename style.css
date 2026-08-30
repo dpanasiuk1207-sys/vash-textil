@@ -82,3 +82,8 @@ body{background:#f6f3ee}
 .payment-note{margin-top:24px;padding:18px 20px;border:1px solid var(--line);border-radius:18px;background:#fffdfa;display:grid;gap:6px}.payment-note span{color:#77716a;font-size:14px;line-height:1.5}.pay-method{border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin:18px 0}.pay-method legend{padding:0 6px;font-size:11px;letter-spacing:.14em;color:#77716a}.pay-method label{display:flex;gap:12px;align-items:flex-start;padding:12px 0;cursor:pointer}.pay-method label+label{border-top:1px solid #eee8df}.pay-method span{display:grid;gap:3px}.pay-method small{color:#8a847d}.form-legal{font-size:11px;line-height:1.5;color:#8a847d;margin-top:12px}
 
 .checkout-cart-summary{margin:0 0 22px;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:#f7f3ed}.checkout-cart-row,.checkout-cart-total{display:flex;justify-content:space-between;gap:12px;padding:8px 0;font-size:13px}.checkout-cart-row+ .checkout-cart-row{border-top:1px solid var(--line)}.checkout-cart-total{margin-top:6px;padding-top:12px;border-top:1px solid var(--text);font-size:15px}.checkout-cart-summary:empty{display:none}
+
+
+/* Category-specific size filters */
+.sizeChips{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.sizeChips .chip{cursor:pointer}.sizeChips .chip.active{transform:translateY(-1px)}
+@media(max-width:640px){.sizeChips{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.sizeChips .chip{width:100%;padding:10px 6px;font-size:12px}}
