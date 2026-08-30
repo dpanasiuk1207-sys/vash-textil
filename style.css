@@ -98,3 +98,8 @@ body{background:#f6f3ee}
  .sizeButtons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;gap:8px}
  .sizeButtons .sizeButton{min-width:0;width:100%;padding:11px 6px}
 }
+
+/* Size controls: always visible physical buttons */
+#sizeFilter{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%;}
+#sizeFilter.is-hidden{display:grid!important;}
+#sizeFilter .sizeButton{display:flex!important;align-items:center;justify-content:center;min-height:46px;width:100%;border-radius:14px;font-weight:600;white-space:nowrap;}

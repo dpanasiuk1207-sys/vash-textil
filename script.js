@@ -9,7 +9,7 @@ function observe(){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isI
 function setupRails(){["#allRail","#pillowRail","#duvetRail","#linenRail","#coverRail"].forEach(sel=>{const e=$(sel);if(!e)return;let cat=e.dataset.cat;e.innerHTML=P.filter(x=>!cat||x.cat===cat).map(card).join("");bindImageFallback(e)})}
 function setupCatalog(){
  const g=$("#catalogGrid"); if(!g)return;
- let cat="all",size="all";
+ let cat="Подушки",size="all";
  const sizeFilter=$("#sizeFilter");
  const sizeOptions={
   Подушки:[["50×70","50/70"],["70×70","70/70"],["40×60","40/60"]],
