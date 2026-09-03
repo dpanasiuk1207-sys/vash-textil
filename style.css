@@ -103,3 +103,27 @@ body{background:#f6f3ee}
 #sizeFilter{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%;}
 #sizeFilter.is-hidden{display:grid!important;}
 #sizeFilter .sizeButton{display:flex!important;align-items:center;justify-content:center;min-height:46px;width:100%;border-radius:14px;font-weight:600;white-space:nowrap;}
+
+/* Premium UI layer — keeps existing layout and behavior intact. */
+:root{--accent2:#b88a62;--glass:rgba(255,253,249,.72)}
+body{animation:pageIn .55s ease both}
+.btn,.chip,.size,.icon{position:relative;overflow:hidden;transition:transform .32s cubic-bezier(.22,1,.36,1),box-shadow .32s ease,background .32s ease,border-color .32s ease}
+.btn:before,.chip:before,.size:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.32) 48%,transparent 70%);transform:translateX(-130%);transition:transform .65s ease;pointer-events:none}
+.btn:hover:before,.chip:hover:before,.size:hover:before{transform:translateX(130%)}
+.btn:hover,.chip:hover,.size:hover{transform:translateY(-2px)}
+.chip{box-shadow:0 5px 18px rgba(43,34,25,.035)}
+.chip.active{box-shadow:0 12px 28px rgba(33,31,27,.16)}
+.size.active{box-shadow:0 10px 24px rgba(33,31,27,.16)}
+.filters{padding:6px 0 16px;gap:10px}
+.filters .chip{padding:12px 19px;font-size:12px;letter-spacing:.02em}
+#sizeFilter{margin-top:4px}
+#sizeFilter .sizeButton{min-height:46px;font-weight:600;border-radius:15px;background:rgba(255,253,249,.9);box-shadow:0 8px 24px rgba(43,34,25,.05)}
+#sizeFilter .sizeButton.active{background:linear-gradient(135deg,#292721,#171612);border-color:#171612;color:#fff}
+.card{box-shadow:0 10px 30px rgba(43,34,25,.055)}
+.card:hover{box-shadow:0 28px 70px rgba(43,34,25,.14)}
+.product-media-main video{background:#e8e1d7}
+.media-thumb.video-thumb{border-color:rgba(154,106,69,.35);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.media-thumb.video-thumb:after{box-shadow:0 5px 15px rgba(0,0,0,.18);font-size:9px}
+.media-thumb.video-thumb:before{background:rgba(33,31,27,.86);letter-spacing:.12em}
+@keyframes pageIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
