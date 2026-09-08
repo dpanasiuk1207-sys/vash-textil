@@ -127,3 +127,24 @@ body{animation:pageIn .55s ease both}
 .media-thumb.video-thumb:before{background:rgba(33,31,27,.86);letter-spacing:.12em}
 @keyframes pageIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+
+/* Product first-screen optimization */
+.productPage{align-items:start}
+.product-media-main{max-height:56vh;min-height:320px}
+.product-media-main img,.product-media-main video{max-height:56vh;object-fit:cover}
+.product-media-thumbs{margin-top:10px}
+@media(max-width:900px){
+  .productPage{display:block}
+  .product-media-main{min-height:0;height:42vh;max-height:420px}
+  .product-media-main img,.product-media-main video{height:100%;max-height:none;object-fit:cover}
+  .product-media-thumbs{max-height:72px;overflow:hidden}
+  .detail{padding-top:18px}
+  .detailInfo{padding:20px}
+}
+@media(max-width:600px){
+  .product-media-main{height:34vh;max-height:330px}
+  .product-media-thumbs{height:58px;max-height:58px}
+  .detail{padding-top:12px}
+  .detailInfo{padding:20px}
+}
